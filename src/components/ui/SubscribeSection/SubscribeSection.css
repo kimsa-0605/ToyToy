@@ -1,0 +1,164 @@
+/* Contact */
+.contact-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contact-content {
+    display: flex;
+    justify-content: center;
+    gap: 145px;
+    width: 1175px;
+    height: 177px;
+    margin-bottom: 125px;
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    .contact-left-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        .fly-button {
+            display: flex;
+            width: 64px;
+            height: 64px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #FF9191;
+            img {
+                color: #fff;
+                width: 32px;
+                height: 32px;
+            }
+        }
+        .contact-left-text {
+            font-family: "Poppins", sans-serif;
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 400;
+            span {
+                color: #FF9191;
+            }
+        }
+    }
+}
+
+.contact-right-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    input {
+        width: 385px;
+        height: 48px;
+        padding-right: 28px;
+        padding-left: 28px;
+        border: 2px solid #e5e5e5;
+        border-radius: 24px;
+        transition: all 0.3s 0s ease-in-out;
+    }
+    input:focus {
+        border: 2px solid #FF9191;
+        outline: none;
+        transition: all 0.3s 0s ease-in-out;
+    }
+    .contact-right-button {
+        padding: 15px 28px;
+        border-radius: 24px;
+        background-color: #FF9191;
+        color: #fff;
+        font-size: 14px;
+        line-height: 24px;
+        font-weight: 600;
+        text-align: center;
+        display: inline-block;
+        line-height: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s 0s ease-in-out;
+    }
+    .contact-right-button:hover {
+        box-shadow: 0 8px 8px -4px #FF9191A8;
+        transform: scale(1.05);
+        transition: all 0.3s 0s ease-in-out;
+    }
+}
+/* End contact */
+
+/* ---------------- MOBILE: max-width 600px ---------------- */
+@media (max-width: 600px) {
+  .contact-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 83%;
+    height: auto;
+    padding: 32px 16px;
+    margin-bottom: 80px;
+  }
+
+  .contact-left-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .contact-left-text {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .contact-right-content {
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .contact-right-content input {
+    width: 70vw;
+    height: 40px;
+  }
+
+  .contact-right-button {
+    width: 20vw;
+    text-align: center;
+  }
+}
+
+/* ---------------- TABLET: 601px–1024px ---------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .contact-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 89%;
+    height: auto;
+    padding: 40px 24px;
+  }
+
+  .contact-left-content {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .contact-right-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .contact-right-content input {
+    width: 80vw;
+  }
+
+  .contact-right-button {
+    width: 10vw;
+    text-align: center;
+  }
+}

@@ -1,0 +1,107 @@
+.introducing-toy-container {
+    display: flex;
+    justify-content: center;
+    padding: 120px 0px;
+}
+.introducing-toy-content {
+    width: 1175px;
+}
+.introducing-main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    img {
+        width: 100%;
+        border-radius: 16px;
+    } 
+    .title-text {
+        text-align: center;
+        .all-you-need-fun {
+            margin-bottom: 16px;
+            color: #FF9191;
+            font-size: 13px;
+            line-height: 16px;
+            font-weight: 600;
+        }
+        .introducing-toy-text {
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+            font-size: 40px;
+            line-height: 48px;
+            font-weight: 400;
+        }
+        .text {
+            margin-bottom: 28px;
+            font-size: 14px;
+            line-height: 24px;
+            color: #999;
+        }
+        .about-link {
+            text-decoration: none;
+            color: #111;
+            font-size: 13px;
+            line-height: 20px;
+            font-weight: 600;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            border-bottom: 2px solid #ddd;
+            transition: all 0.3s 0s ease-in-out;
+        }
+        .about-link:hover {
+            border-bottom: 2px solid #FF9191;
+            transition: all 0.3s 0s ease-in-out;
+        }
+    }
+}
+/* End introducing toy section */
+
+/* ---------------- MOBILE: max-width 600px ---------------- */
+@media (max-width: 600px) {
+  .introducing-toy-content {
+    width: 90vw;
+  }
+
+  .introducing-main-content {
+    & .title-text {
+        .introducing-toy-text {
+            font-size: 7vw;
+        }
+    }
+  }
+
+  .position-design-photo {
+    width: 90vw;
+    height: auto;
+    object-fit: cover;    
+  }
+
+  .available-for-free-content {
+    width: 90vw;
+ }
+
+}
+
+/* ---------------- TABLET: 601px–1024px ---------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .introducing-toy-content {
+    width: 90vw;
+  }
+
+  .introducing-main-content {
+    & .title-text {
+        .introducing-toy-text {
+            font-size: 7vw;
+        }
+    }
+  }
+
+  .position-design-photo {
+    width: 90vw;
+    height: auto;
+    object-fit: cover;    
+  }
+
+  .available-for-free-content {
+    width: 90vw;
+ }
+}

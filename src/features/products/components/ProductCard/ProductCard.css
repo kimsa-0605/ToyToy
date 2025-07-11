@@ -1,0 +1,107 @@
+.product-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+}
+.product-cost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22px;
+    padding: 2px 12px;
+    border-radius: 16px;
+    background-color: #FF9191;
+    color: #fff;
+    font-size: 12px;
+}
+.product-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    padding: 24px 24px 32px;
+    transition: all 0.3s 0s ease-out;
+    cursor: pointer;
+}
+.product-card-content:hover {
+    box-shadow: 0 8px 20px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+    transition: all 0.3s 0s ease-out;
+}
+.product-photo {
+    width: 182px;
+    height: 182px;
+    padding: 20px;
+    object-fit: cover;
+}
+.product-card-link {
+    text-decoration: none;
+    width: fit-content;
+}
+/* End product section */
+
+/* ---------------- MOBILE: max-width 600px ---------------- */
+@media (max-width: 600px) {
+  .product-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 43vw;
+  }
+
+  .product-card .product-photo {
+    width: 29vw;
+    height: 29vw;
+    padding: 1vw;
+  }
+
+  .product-card .product-title {
+    font-size: 3.2vw;
+    text-align: center;
+  }
+
+  .product-card .product-cost {
+    font-size: 2.5vw;
+    padding: 4px 8px;
+  }
+
+  .product-card .product-card-content {
+    padding: 6vw;
+    gap: 2vw;
+  }
+}
+
+/* ---------------- TABLET: 601px–1024px ---------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .product-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+  }
+
+  .product-photo {
+    width: 20vw;
+    height: 20vw;
+    padding: 1vw;
+  }
+
+  .product-title {
+    font-size: 2.2vw;
+    text-align: center;
+  }
+
+  .product-cost {
+    font-size: 2vw;
+    padding: 4px 10px;
+  }
+
+  .product-card-content {
+    padding: 9vw;
+    gap: 1vw;
+  }
+}
