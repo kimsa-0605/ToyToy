@@ -13,6 +13,8 @@ import LogIn from "../pages/Guest/LogIn/LogIn";
 const publicRoutes = [
   { path: '/', element: <Home /> },
   { path: '/catalog', element: <Catalog /> },
+  { path: '/catalog/wooden-toys', element: <Catalog /> },
+  { path: '/catalog/stuffed-animals', element: <Catalog /> },
   { path: '/about', element: <About /> },
   { path: '/contacts', element: <Contacts /> },
   { path: '/delivery', element: <Delivery /> },

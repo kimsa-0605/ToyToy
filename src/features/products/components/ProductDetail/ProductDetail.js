@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-// import BreadcrumbNav from '../../components/ui/BreadcrumbNav/BreadcrumbNav';
-// import SubscribeSection from '../../components/ui/SubscribeSection/SubscribeSection';
-// import ProductCard from '../../components/ui/ProductCard/ProductCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchById, fetchProducts } from '../../slice/productThunks.ts';
+
 import BreadcrumbNav from '../../../../components/ui/BreadcrumbNav/BreadcrumbNav';
 import SubscribeSection from '../../../../components/ui/SubscribeSection/SubscribeSection';
 import ProductCard from '../ProductCard/ProductCard';
@@ -11,35 +11,46 @@ import './ProductDetail.css';
 
 function ProductDetail() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const dispatch = useDispatch();
+
+  const product = useSelector((state) => (id ? state.products.byId[id] : null));
+  const loading = useSelector((state) => state.products.loadingById);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`https://68395bb46561b8d882b012b7.mockapi.io/api/products/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setProduct(data);
+    if (!id) return;
 
-        fetch('https://68395bb46561b8d882b012b7.mockapi.io/api/products')
-          .then(res => res.json())
-          .then(allProducts => {
-            const related = allProducts
-              .filter(p => p.id !== id && p.category_id === data.category_id)
-              .slice(0, 4);
-            setRelatedProducts(related);
-          });
-      })
-      .catch(err => console.error(err));
-  }, [id]);
+    const fetchData = async () => {
+      try {
+        let productData = product;
 
-  if (!product) return <p>Loading...</p>;
+        if (!productData) {
+          const result = await dispatch(fetchById(Number(id))).unwrap();
+          productData = result;
+        }
+
+        const allProducts = await dispatch(fetchProducts()).unwrap();
+        if (Array.isArray(allProducts)) {
+          const related = allProducts
+            .filter(p => String(p.id) !== id && p.category_id === productData.category_id)
+            .slice(0, 4);
+          setRelatedProducts(related);
+        }
+      } catch (err) {
+        console.error('Error:', err);
+      }
+    };
+
+    fetchData();
+  }, [dispatch, id, product]);
+
+  if (loading || !product) return <p>Loading...</p>;
 
   const pages = [
     { name: 'Home', url: '/' },
     { name: 'Catalog', url: '/catalog' },
-    { name: product?.product_name || 'Product', url: `/product/detail/${product?.id}` }
+    { name: product.product_name || 'Product', url: `/product/detail/${product.id}` }
   ];
-
 
   return (
     <div className="container-product-detail">
@@ -53,24 +64,15 @@ function ProductDetail() {
               <p className="price">${product.price} USD</p>
               <div className="quantity-selector">
                 <div className="quantity-group">
-                  <button className="btn btn-decrease" id="decrease">-</button>
-                  <input
-                    type="text"
-                    id="quantity-input"
-                    className="form-control"
-                    defaultValue="1"
-                  />
-                  <button className="btn btn-increase" id="increase">+</button>
+                  <button className="btn btn-decrease">-</button>
+                  <input type="text" defaultValue="1" className="form-control" />
+                  <button className="btn btn-increase">+</button>
                 </div>
                 <button className="add-to-cart">Add to cart</button>
               </div>
             </div>
             <div className="image-product">
-              <img
-                src={product.image_link}
-                alt={product.product_name}
-                className="product-img"
-              />
+              <img src={product.image_link} alt={product.product_name} className="product-img" />
             </div>
           </div>
           <div className="detail-content">
@@ -84,7 +86,7 @@ function ProductDetail() {
       </div>
 
       <div className="product-section-container">
-        <div id='product-section-content' className="product-section-content">
+        <div className="product-section-content">
           <div className="related-products">
             <div className="related-products-header">
               <div className="related-products-header-content">

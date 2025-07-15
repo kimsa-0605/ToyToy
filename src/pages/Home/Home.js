@@ -1,48 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { fetchByCategory } from "../../features/products/slice/productThunks.ts";
 
 import SubscribeSection from "../../components/ui/SubscribeSection/SubscribeSection";
 import InstagramSection from "../../components/ui/InstagramSection/InstagramSection";
 import VideoSection from "../../components/ui/VideoSection/VideoSection";
 import EcommerceTemplate from "../../components/ui/EcommerceTemplate/EcommerceTemplate";
-
+import ProductCard from "../../features/products/components/ProductCard/ProductCard";
 import Banner from "../../assets/images/banner.jpg";
 import WoodenImg from "../../assets/images/wooden.png";
 import StuffedImg from "../../assets/images/stuffed.png";
 
-import ProductCard from "../../features/products/components/ProductCard/ProductCard";
-
-import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const productsByCategory = useSelector((state) => state.products.productsByCategory);
 
   const [stuffedAnimals, setStuffedAnimals] = useState([]);
   const [woodenToys, setWoodenToys] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchByCategory("STUFFED_ANIMALS"))
-    .unwrap()
-    .then((data) => {
-      if (Array.isArray(data)) {
-        setStuffedAnimals(data.slice(0, 4));
-      } else {
-        console.error("Data is not array:", data);
-      }
-    });
+    const stuffed = productsByCategory.STUFFED_ANIMALS;
+    const wooden = productsByCategory.WOODEN_TOYS;
 
-    dispatch(fetchByCategory("WOODEN_TOYS"))
-    .unwrap()
-    .then((data) => {
-      if (Array.isArray(data)) {
-        setWoodenToys(data.slice(0, 4));
-      } else {
-        console.error("Data is not array:", data);
-      }
-    });
-  }, [dispatch]);
+    if (!stuffed || stuffed.length === 0) {
+      dispatch(fetchByCategory("STUFFED_ANIMALS"));
+    } else {
+      setStuffedAnimals(stuffed.slice(0, 4));
+    }
+
+    if (!wooden || wooden.length === 0) {
+      dispatch(fetchByCategory("WOODEN_TOYS"));
+    } else {
+      setWoodenToys(wooden.slice(0, 4));
+    }
+  }, [dispatch, productsByCategory]);
 
   return (
     <div className="container">
@@ -76,13 +70,13 @@ const Home = () => {
               <img src={StuffedImg} alt="Stuffed Animals" />
               <div className="category-blog">
                 <h3 className="category-title">Stuffed Animals</h3>
-                <Link to="/catalog" className="category-shop-now-btn">Shop now</Link>
+                <Link to="/catalog/stuffed-animals" className="category-shop-now-btn">Shop now</Link>
               </div>
             </div>
             <div className="category-wooden-toys" data-aos="zoom-in" data-aos-duration="1000">
               <div className="category-blog">
                 <h3 className="category-title">Wooden Toys</h3>
-                <Link to="/catalog" className="category-shop-now-btn">Shop now</Link>
+                <Link to="/catalog/wooden-toys" className="category-shop-now-btn">Shop now</Link>
               </div>
               <img src={WoodenImg} alt="Wooden Toys" />
             </div>
@@ -95,7 +89,7 @@ const Home = () => {
               <div className="stuffed-animal-toys-header">
                 <div className="stuffed-animal-toys-header-content">
                   <span className="section-title-home">Stuffed Animals</span>
-                  <Link to="/catalog" className="see-all-toys">
+                  <Link to="/catalog/stuffed-animals" className="see-all-toys">
                     <span className="see-all-toys-title">See All Toys</span>
                     <i className="fa-solid fa-right-long"></i>
                   </Link>
@@ -122,7 +116,7 @@ const Home = () => {
               <div className="wood-crafted-toys-header">
                 <div className="wood-crafted-toys-header-content">
                   <span className="section-title-home">Wooden Toys</span>
-                  <Link to="/catalog" className="see-all-toys">
+                  <Link to="/catalog/wooden-toys" className="see-all-toys">
                     <span className="see-all-toys-title">See All Toys</span>
                     <i className="fa-solid fa-right-long"></i>
                   </Link>

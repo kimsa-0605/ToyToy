@@ -7,3 +7,7 @@ export const getAllProducts = async () => {
 export const getByCategory = async (category: string) => {
   return await apiClient.get(`/api/v1/products/category/${category}`);
 };
+
+export const getById = async (id: number) => {
+  return await apiClient.get(`/api/v1/products/${id}`)
+}

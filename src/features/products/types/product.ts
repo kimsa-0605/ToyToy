@@ -10,7 +10,14 @@ export interface Product {
 
 export interface ProductState {
   products: Product[];
+  byId: Record<string, Product>;
+  currentId: string | null;
+  productsByCategory: {
+    STUFFED_ANIMALS: Product[];
+    WOODEN_TOYS: Product[];
+  };
   loadingAll: boolean;
   loadingByCategory: boolean;
+  loadingById: boolean;
   error: string | null;
 }
