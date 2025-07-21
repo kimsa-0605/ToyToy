@@ -44,43 +44,55 @@ function ProductDetail() {
     fetchData();
   }, [dispatch, id, product]);
 
-  if (loading || !product) return <p>Loading...</p>;
-
   const pages = [
     { name: 'Home', url: '/' },
     { name: 'Catalog', url: '/catalog' },
-    { name: product.product_name || 'Product', url: `/product/detail/${product.id}` }
+    { name: product?.product_name || 'Product', url: `/product/detail/${product?.id || ''}` }
   ];
 
   return (
     <div className="container-product-detail">
       <BreadcrumbNav pages={pages} />
+
       <div className="product-detail-content">
         <div className="card-product-detail">
           <div className="card-product-detail-content">
-            <div className="product-info">
-              <h2>{product.product_name}</h2>
-              <p className="stock">Quantity: {product.quantity}</p>
-              <p className="price">${product.price} USD</p>
-              <div className="quantity-selector">
-                <div className="quantity-group">
-                  <button className="btn btn-decrease">-</button>
-                  <input type="text" defaultValue="1" className="form-control" />
-                  <button className="btn btn-increase">+</button>
-                </div>
-                <button className="add-to-cart">Add to cart</button>
+            {loading || !product ? (
+              <div className="loading-placeholder">
+                <p style={{ gridColumn: "1/-1", textAlign: "center" }}>Loading...</p>
               </div>
-            </div>
-            <div className="image-product">
-              <img src={product.image_link} alt={product.product_name} className="product-img" />
-            </div>
+            ) : (
+              <>
+                <div className="product-info">
+                  <h2>{product.product_name}</h2>
+                  <p className="stock">Quantity: {product.quantity}</p>
+                  <p className="price">${product.price} USD</p>
+                  <div className="quantity-selector">
+                    <div className="quantity-group">
+                      <input
+                        type="number"
+                        defaultValue={1}
+                        min={1}
+                        max={product.quantity}
+                        className="form-control"
+                      />
+                    </div>
+                    <button className="add-to-cart">Add to cart</button>
+                  </div>
+                </div>
+                <div className="image-product">
+                  <img src={product.image_link} alt={product.product_name} className="product-img" />
+                </div>
+              </>
+            )}
           </div>
+
           <div className="detail-content">
             <h3>Product description</h3>
             <div className="toys-line-header">
               <div className="toys-line-header-color"></div>
             </div>
-            <p>{product.description}</p>
+            <p>{loading || !product ? 'Loading description...' : product.description}</p>
           </div>
         </div>
       </div>
@@ -101,7 +113,9 @@ function ProductDetail() {
               </div>
             </div>
             <div className="product-list-detail">
-              {relatedProducts.length > 0 ? (
+              {loading ? (
+                <p>Loading related products...</p>
+              ) : relatedProducts.length > 0 ? (
                 relatedProducts.map((item) => (
                   <Link to={`/product/${item.id}`} key={item.id} className="product-card-link">
                     <ProductCard
@@ -119,6 +133,7 @@ function ProductDetail() {
           </div>
         </div>
       </div>
+
       <SubscribeSection />
     </div>
   );

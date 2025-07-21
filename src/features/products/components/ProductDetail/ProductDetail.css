@@ -73,7 +73,6 @@
 }
 .quantity-group button,
 .quantity-group input {
-    width: 40px;
     height: 35px;
     border: none;
     font-size: 20px;
@@ -83,8 +82,6 @@
 }
 .quantity-group input {
     text-align: center;
-    border-left: 2px solid #FF9191;
-    border-right: 2px solid #FF9191;
     outline: none;
 }
 .add-to-cart {
@@ -196,6 +193,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: 50px;
     gap: 30px;
+    min-height: 500px;
 }
 
 /* End product section */

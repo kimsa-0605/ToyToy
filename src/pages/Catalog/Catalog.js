@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchByCategory, fetchProducts } from "../../features/products/slice/productThunks.ts";
@@ -13,18 +13,30 @@ import './Catalog.css';
 function Catalog() {
   const pages = [
     { name: "Home", url: "/" },
-    { name: "Catalog", url: "/catalog" },
+    { name: "Catalog", url: "/catalog" }
+  ];
+
+  const categoryMap = {
+    "/catalog": "ALL",
+    "/catalog/stuffed-animals": "STUFFED_ANIMALS",
+    "/catalog/wooden-toys": "WOODEN_TOYS",
+  };
+
+  const categoryTitles = {
+    ALL: "All Toys",
+    STUFFED_ANIMALS: "Stuffed Animals",
+    WOODEN_TOYS: "Wooden Toys",
+  };
+
+  const categoryLinks = [
+    { to: "/catalog", label: "All Toys" },
+    { to: "/catalog/wooden-toys", label: "Wooden Toys" },
+    { to: "/catalog/stuffed-animals", label: "Stuffed Animals" },
   ];
 
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-
-  const categoryMap = {
-    "/catalog": "ALL",
-    "/catalog/stuffed-toys": "STUFFED_ANIMALS",
-    "/catalog/wooden-toys": "WOODEN_TOYS",
-  };
-
+  
   const selectedCategory = categoryMap[pathname] || "ALL";
 
   const products = useSelector((state) => {
@@ -52,20 +64,10 @@ function Catalog() {
     }
   }, [dispatch, selectedCategory, products]);
 
-  const categoryLinks = [
-    { to: "/catalog", label: "All Toys" },
-    { to: "/catalog/wooden-toys", label: "Wooden Toys" },
-    { to: "/catalog/stuffed-animals", label: "Stuffed Animals" },
-  ];
-
   const getActiveClass = (path) => {
     if (path === "/catalog") return pathname === "/catalog" ? "active" : "";
     return pathname.startsWith(path) ? "active" : "";
   };
-
-  if (loading || !products) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <div className="container">
@@ -77,11 +79,7 @@ function Catalog() {
               <div className="all-toys-header">
                 <div className="all-toys-header-content">
                   <span className="section-title">
-                    {selectedCategory === "ALL"
-                      ? "All Toys"
-                      : selectedCategory === "STUFFED_ANIMALS"
-                      ? "Stuffed Animals"
-                      : "Wooden Toys"}
+                    {categoryTitles[selectedCategory] || ""}
                   </span>
                   <span className="categories-toys">
                     {categoryLinks.map(({ to, label }) => (
@@ -99,21 +97,26 @@ function Catalog() {
                   <div className="toys-line-header-color" />
                 </div>
               </div>
+
               <div className="product-list">
-                {products.map((product) => (
-                  <Link
-                    to={`/product/${product.id}`}
-                    key={product.id}
-                    className="product-card-link"
-                  >
-                    <ProductCard
-                      imgSrc={product.image_link}
-                      altText={product.product_name}
-                      title={product.product_name}
-                      price={`$${product.price}.00 USD`}
-                    />
-                  </Link>
-                ))}
+                {loading ? (
+                  <p style={{ gridColumn: "1/-1", textAlign: "center" }}>Loading...</p>
+                ) : (
+                  products.map((product) => (
+                    <Link
+                      to={`/product/${product.id}`}
+                      key={product.id}
+                      className="product-card-link"
+                    >
+                      <ProductCard
+                        imgSrc={product.image_link}
+                        altText={product.product_name}
+                        title={product.product_name}
+                        price={`$${product.price}.00 USD`}
+                      />
+                    </Link>
+                  ))
+                )}
               </div>
             </div>
           </div>

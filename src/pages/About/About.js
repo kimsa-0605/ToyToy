@@ -5,7 +5,6 @@ import VideoSection from "../../components/ui/VideoSection/VideoSection";
 import SubscribeSection from "../../components/ui/SubscribeSection/SubscribeSection";
 import InstagramSection from "../../components/ui/InstagramSection/InstagramSection";
 import './About.css';
-import { Link } from "react-router-dom";
 
 function About() {
   const pages = [
@@ -55,7 +54,7 @@ function About() {
           title="Earned through parents' trust" 
           textBtn="Let's Explore" 
           link={'/catalog'} 
-          imagelink={'https://assets.website-files.com/5badda2935e11303a89a461e/5bb5c77f0b5b7843138dc3c3_side-image-02-p-1080.jpeg'} 
+          imagelink={'https://spiritview.net/wp-content/uploads/2020/06/062520-1536x959.jpeg'} 
           displayStyle="none"
           rowChange="row-reverse"
           paragraph={

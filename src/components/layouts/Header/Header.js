@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
@@ -7,6 +7,20 @@ const Header = () => {
 
   const token = localStorage.getItem('token');
   const isLoggedIn = Boolean(token);
+  const { pathname } = useLocation();
+
+  const getActiveClass = (path) => {
+    if (path === "/catalog") {
+      const validCatalogPaths = [
+        "/catalog",
+        "/catalog/stuffed-animals",
+        "/catalog/wooden-toys"
+      ];
+      return validCatalogPaths.includes(pathname) ? "active" : "";
+    }
+
+    return pathname === path ? "active" : "";
+  };
 
   return (
     <div id="header-container" className="header-container">
@@ -45,10 +59,10 @@ const Header = () => {
 
             <div className="header-nav-cart">
               <div className="header-nav-title">
-                <Link className="header-nav-title-hover" to="/catalog">Catalog</Link>
-                <Link className="header-nav-title-hover" to="/delivery">Delivery</Link>
-                <Link className="header-nav-title-hover" to="/about">About</Link>
-                <Link className="header-nav-title-hover" to="/contacts">Contacts</Link>
+                <Link className={`header-nav-title-hover ${getActiveClass("/catalog")}`} to="/catalog">Catalog</Link>
+                <Link className={`header-nav-title-hover ${getActiveClass("/delivery")}`} to="/delivery">Delivery</Link>
+                <Link className={`header-nav-title-hover ${getActiveClass("/about")}`} to="/about">About</Link>
+                <Link className={`header-nav-title-hover ${getActiveClass("/contacts")}`} to="/contacts">Contacts</Link>
               </div>
 
               <div className="search-bar">

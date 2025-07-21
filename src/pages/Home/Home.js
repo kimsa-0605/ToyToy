@@ -23,20 +23,21 @@ const Home = () => {
 
   useEffect(() => {
     const stuffed = productsByCategory.STUFFED_ANIMALS;
-    const wooden = productsByCategory.WOODEN_TOYS;
-
     if (!stuffed || stuffed.length === 0) {
       dispatch(fetchByCategory("STUFFED_ANIMALS"));
     } else {
       setStuffedAnimals(stuffed.slice(0, 4));
     }
+  }, [dispatch, productsByCategory.STUFFED_ANIMALS]);
 
+  useEffect(() => {
+    const wooden = productsByCategory.WOODEN_TOYS;
     if (!wooden || wooden.length === 0) {
       dispatch(fetchByCategory("WOODEN_TOYS"));
     } else {
       setWoodenToys(wooden.slice(0, 4));
     }
-  }, [dispatch, productsByCategory]);
+  }, [dispatch, productsByCategory.WOODEN_TOYS]);
 
   return (
     <div className="container">
@@ -146,7 +147,7 @@ const Home = () => {
           title="Children's happiness" 
           textBtn="Let's Explore" 
           link={'/catalog'} 
-          imagelink={'https://assets.website-files.com/5badda2935e11303a89a461e/5bb5c77ee73150e2021b0db4_side-image-01-p-1080.jpeg'} 
+          imagelink={'https://i.pinimg.com/1200x/0c/06/cb/0c06cbaab2aa39391ca8ba805a3f93dc.jpg'} 
           paragraph={<>The happiness of children is our greatest honor. We take pride in offering adorable, safe, and high-quality toys that not only support children's all-round development but also bring peace of mind and joy to parents. Because when a child smiles, the whole family is happy.</>} 
         />
         <SubscribeSection />
