@@ -83,8 +83,8 @@
     box-shadow: none;
 }
 .header-nav-title-hover:hover {
-    text-decoration: underline;
-    color: #FF9191;
+  text-decoration: underline;
+  color: #FF9191;
 }
 
 .header-nav-title-hover.active {
@@ -137,6 +137,59 @@
   a:hover {
     color: #FF9191;
   }
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #FF9191;
+}
+
+.notification .icon, .shopping-cart .icon {
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.user-avatar-header {
+  position: relative;
+}
+
+.profile-block {
+  position: absolute;
+  width: 150px;
+  background-color: white;
+  padding: 15px 30px;
+  border-radius: 16px;
+  box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.12);
+  display: none;
+}
+
+.user-avatar-header:hover .profile-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.infor-profile {
+  text-align: center;
+}
+
+.profile-header, .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.profile-header:hover, .logout-btn:hover {
+  text-decoration: underline;
+  color: #FF9191;
 }
 
 /* =============== RESPONSIVE: Mobile + Tablet (<=1024px) =============== */

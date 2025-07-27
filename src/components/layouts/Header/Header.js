@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ShoppingCart, Bell } from 'lucide-react';
+
 import './Header.css';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const currentUser = JSON.parse(localStorage.getItem("user") || '{}');  
   const token = localStorage.getItem('token');
   const isLoggedIn = Boolean(token);
   const { pathname } = useLocation();
@@ -73,21 +76,36 @@ const Header = () => {
               </div>
 
               {isLoggedIn ? (
+                <>
                 <div className="user-avatar-header">
-                  <img src="https://bathanh.com.vn/wp-content/uploads/2017/08/default_avatar.png" alt="avatar" />
+                  <img className='user-avatar' src={currentUser?.avatar_link || "https://i.pinimg.com/736x/59/ed/cc/59edcc9ded95ddaacc2399bcd79f6af3.jpg" } alt="avatar" />
                   <div className="profile-block">
-                    <div className="profile-header">
-                      <i className="fa-regular fa-user"></i>
-                      <Link to="/profile">Profile</Link>
+                    <div className='infor-profile'>
+                        <div className='user-name'>
+                          { currentUser?.fullname || 'No name'}
+                        </div>
+                        <hr/>
                     </div>
-                    <button className="logout-btn" onClick={() => {
+                    <Link to="/profile" className="profile-header">
+                      <i className="fa-regular fa-user"></i>
+                      <div>Profile</div>
+                    </Link>
+                    <div className="logout-btn" onClick={() => {
                       localStorage.removeItem('token');
+                      localStorage.removeItem('user');
                       window.location.reload(); 
                     }}>
                       <i className="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                    </button>
+                    </div>
                   </div>
                 </div>
+                <Link to="/notification" className="notification" >
+                  <Bell className="icon" />
+                </Link>
+                <Link to="/cart" className="shopping-cart" >
+                  <ShoppingCart className="icon" />
+                </Link>
+                </>
               ) : (
                 <div className="login-signup-title">
                   <p>

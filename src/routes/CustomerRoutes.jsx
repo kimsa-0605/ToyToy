@@ -11,7 +11,7 @@ const About = lazy(() => import("../pages/About/About"));
 const Contacts = lazy(() => import("../pages/Contacts/Contacts"));
 const ProductDetail = lazy(() => import("../features/products/components/ProductDetail/ProductDetail"));
 const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
-const LogIn = lazy(() => import("../pages/Guest/LogIn/LogIn"));
+const LogIn = lazy(() => import("../pages/Guest/LogIn/LogIn.tsx"));
 
 const publicRoutes = [
   { path: '/', element: <Home /> },
