@@ -12,6 +12,7 @@ const Contacts = lazy(() => import("../pages/Contacts/Contacts"));
 const ProductDetail = lazy(() => import("../features/products/components/ProductDetail/ProductDetail"));
 const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 const LogIn = lazy(() => import("../pages/Guest/LogIn/LogIn.tsx"));
+const CartItem  = lazy(() => import("../pages/CartItem/CartItem"));
 
 const publicRoutes = [
   { path: '/', element: <Home /> },
@@ -28,7 +29,7 @@ const publicRoutes = [
 
 const protectedRoutes = [
   { path: '/checkout', element: <Home /> },
-  { path: '/cart', element: <Home /> },
+  { path: '/cart', element: <CartItem /> },
 ];
 
 export function CustomerRoutes() {

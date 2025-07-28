@@ -14,6 +14,14 @@ export const getById = async (id: number) => {
 }
 
 // POST
+export const addToCart = async (product_id: number, quantity: number) => {
+  return await apiClient.post('/api/v1/cart-items', 
+    {
+      product_id,
+      quantity
+    }
+  )
+}
 
 // PUT
 

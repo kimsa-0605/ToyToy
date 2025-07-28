@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchById, fetchProducts } from '../../slice/productThunks.ts';
+import { fetchAddToCart } from '../../../cart_items/slice/cartItemThunks.ts'
+import { toast } from 'react-toastify';
 
 import BreadcrumbNav from '../../../../components/ui/BreadcrumbNav/BreadcrumbNav';
 import SubscribeSection from '../../../../components/ui/SubscribeSection/SubscribeSection';
@@ -16,6 +18,7 @@ function ProductDetail() {
   const product = useSelector((state) => (id ? state.products.byId[id] : null));
   const loading = useSelector((state) => state.products.loadingById);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (!id) return;
@@ -50,6 +53,17 @@ function ProductDetail() {
     { name: product?.product_name || 'Product', url: `/product/detail/${product?.id || ''}` }
   ];
 
+  const handleAddToCart = async () => {
+  if (!product) return;
+  try {
+    await dispatch(fetchAddToCart({ product_id: product.id, quantity })).unwrap();
+    toast.success('Added to cart successfully');
+  } catch (err) {
+    console.error('Failed to add to cart:', err);
+    toast.error('Failed to add to cart');
+  }
+};
+
   return (
     <div className="container-product-detail">
       <BreadcrumbNav pages={pages} />
@@ -71,13 +85,16 @@ function ProductDetail() {
                     <div className="quantity-group">
                       <input
                         type="number"
-                        defaultValue={1}
+                        value={quantity}
                         min={1}
                         max={product.quantity}
                         className="form-control"
+                        onChange={(e) => setQuantity(Number(e.target.value))}
                       />
                     </div>
-                    <button className="add-to-cart">Add to cart</button>
+                    <button className="add-to-cart" onClick={handleAddToCart}>
+                      Add to cart
+                    </button>
                   </div>
                 </div>
                 <div className="image-product">
