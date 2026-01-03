@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+# 🧸 ToyToy – Children Toy E-commerce Website (Frontend)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**ToyToy** is a modern e-commerce web application for selling toys for children, focusing on a friendly UI, smooth shopping experience, and scalable frontend architecture.  
+The project is built with a **feature-based structure** to ensure maintainability, reusability, and easy extension as the product grows.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Key Highlights
 
-### `npm start`
+- Feature-based frontend architecture
+- Clean and reusable UI components
+- State management with Redux Toolkit
+- Scalable folder structure for real-world projects
+- Responsive design for children-friendly e-commerce
+- Ready for integration with backend APIs
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠 Tech Stack
 
-### `npm test`
+| Technology | Purpose |
+|-----------|---------|
+| **React** | Component-based UI development |
+| **TypeScript** | Type safety and better maintainability |
+| **Redux Toolkit** | Global state management |
+| **React Router** | Client-side routing |
+| **Axios / Services layer** | API communication |
+| **CSS / UI Components** | Styling and layout |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🧱 Architecture Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The frontend follows a **Feature-based Architecture**, where each business feature is self-contained.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **UI Components** are reusable and shared across features
+- **Features** encapsulate business logic, state, services, and types
+- **Pages** represent route-level screens
+- **Store** manages global application state
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This approach helps the project scale without becoming tightly coupled.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📂 Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src
+├── assets
+│   └── images                # Static assets (images, banners)
+├── components
+│   ├── common                # Reusable common components (Button, Modal)
+│   ├── layouts               # Layout components (Header, Footer, MainLayout)
+│   └── ui                    # UI sections (Loading, Breadcrumb, Sections)
+├── features                  # Business features (domain-based)
+│   ├── cart_items
+│   │   ├── components
+│   │   ├── services
+│   │   ├── slice
+│   │   └── types
+│   ├── products
+│   │   ├── components        # ProductCard, ProductDetail
+│   │   ├── hooks
+│   │   ├── services
+│   │   ├── slice
+│   │   └── types
+│   └── users
+│       ├── components        # UserProfile
+│       ├── hooks
+│       ├── services
+│       ├── slice
+│       └── types
+├── hooks                     # Global custom hooks
+├── pages                     # Route-level pages
+├── routes                    # Route configuration
+├── services                  # Shared API services
+└── store
+    ├── slices                # Global Redux slices
+    └── types                 # Global state types
+```
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 🖼️ Application Screenshots
+Screenshots below demonstrate the main UI and features of ToyToy.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 🏡 Home
 
-## Learn More
+<p align="center">
+  <img width="300" height="300" alt="Home" src="./src/assets/images/readMeImg/home.png" />
+</p>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<p align="center">
+  <img width="300" height="300" alt="Product" src="./src/assets/images/readMeImg/product.png" />
+</p>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 🧸 Product Catalog
 
-### Code Splitting
+<p align="center">
+  <img width="300" height="300" alt="Catalog" src="./src/assets/images/readMeImg/catalog.png" />
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<p align="center">
+  <img width="300" height="300" alt="Product Detail" src="./src/assets/images/readMeImg/productDetail.png" />
+</p>
 
-### Analyzing the Bundle Size
+#### 🛒 Shopping Cart
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<p align="center">
+  <img width="300" height="300" alt="Cart" src="./src/assets/images/readMeImg/cart.png" />
+</p>
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 🚀 Getting Started
+1️⃣ Install Dependencies
+```bash
+npm install
+```
+2️⃣ Run Development Server
+```bash
+npm run dev
+```
