@@ -54,7 +54,7 @@ function About() {
           title="Earned through parents' trust" 
           textBtn="Let's Explore" 
           link={'/catalog'} 
-          imagelink={'https://spiritview.net/wp-content/uploads/2020/06/062520-1536x959.jpeg'} 
+          imagelink={'https://i.pinimg.com/1200x/31/9a/af/319aafcbf6163f65a739abe9ca50cfca.jpg'} 
           displayStyle="none"
           rowChange="row-reverse"
           paragraph={

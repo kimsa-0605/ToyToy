@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { AppDispatch, RootState } from '../../../store/store';
 import { fetchAuth } from '../../../store/slices/authThunk.ts';
 import { fetchUserByEmail } from '../../../features/users/slice/userThunks.ts';
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function LogIn() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,14 +17,18 @@ export default function LogIn() {
 
   const { loading } = useSelector((state: RootState) => state.auth);
 
-  const pawPositions = Array.from({ length: 15 }, (_, i) => ({
-    id: i,
-    top: Math.random() * 90 + 5,
-    left: Math.random() * 90 + 5,
-    rotation: Math.random() * 360,
-    delay: Math.random() * 3,
-    size: Math.random() * 8 + 16,
-  }));
+  const pawPositions = useMemo(
+    () =>
+      Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        top: Math.random() * 90 + 5,
+        left: Math.random() * 90 + 5,
+        rotation: Math.random() * 360,
+        delay: Math.random() * 3,
+        size: Math.random() * 8 + 16,
+      })),
+    []
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +50,6 @@ export default function LogIn() {
           const userAction = await dispatch(fetchUserByEmail(values.email));
 
           if (userAction.type.endsWith('/fulfilled')) {
-            
             localStorage.setItem('user', JSON.stringify(userAction.payload));
             localStorage.setItem('role', JSON.stringify(userAction.payload.role));
             toast.success('Login successful!');
@@ -58,7 +61,11 @@ export default function LogIn() {
           throw new Error(payload?.message || 'Login failed! Invalid email or password');
         }
       } catch (error: any) {
-        toast.error(error?.response?.data?.message || error.message || 'Invalid email or password');
+        toast.error(
+          error?.response?.data?.message ||
+          error.message ||
+          'Invalid email or password'
+        );
       }
     },
   });

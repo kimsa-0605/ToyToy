@@ -42,7 +42,6 @@ export default function CartItem() {
       
       await dispatch(fetchUpdateCartItem({ product_id: Number(id), quantity: newQuantity }))
       await dispatch(fetchAllCartItems())
-      toast.success("Quantity updated successfully.")
     } catch (error) {
       console.error(error)
       toast.error("Failed to update quantity.")
@@ -54,7 +53,6 @@ export default function CartItem() {
     dispatch(fetchRemoveCartItem(Number(id)))
       .unwrap()
       .then(() => {
-        toast.success("Item removed from cart.")
         dispatch(fetchAllCartItems())
       })
       .catch(() => toast.error("Failed to remove item."))
