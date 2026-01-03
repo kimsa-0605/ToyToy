@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchById, fetchProducts } from '../../slice/productThunks.ts';
 import { fetchAddToCart } from '../../../cart_items/slice/cartItemThunks.ts'
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import BreadcrumbNav from '../../../../components/ui/BreadcrumbNav/BreadcrumbNav';
 import SubscribeSection from '../../../../components/ui/SubscribeSection/SubscribeSection';
@@ -19,6 +20,8 @@ function ProductDetail() {
   const loading = useSelector((state) => state.products.loadingById);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const role = JSON.parse(localStorage.getItem("role"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
@@ -54,15 +57,22 @@ function ProductDetail() {
   ];
 
   const handleAddToCart = async () => {
-  if (!product) return;
-  try {
-    await dispatch(fetchAddToCart({ product_id: product.id, quantity })).unwrap();
-    toast.success('Added to cart successfully');
-  } catch (err) {
-    console.error('Failed to add to cart:', err);
-    toast.error('Failed to add to cart');
-  }
-};
+    if (!product) return;
+
+    if (!role) {
+      toast.warning('Log in to add to cart');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      await dispatch(fetchAddToCart({ product_id: product.id, quantity })).unwrap();
+      toast.success('Added to cart successfully');
+    } catch (err) {
+      console.error('Failed to add to cart:', err);
+      toast.error('Failed to add to cart');
+    }
+  };
 
   return (
     <div className="container-product-detail">

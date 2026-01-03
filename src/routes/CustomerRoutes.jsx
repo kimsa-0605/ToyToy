@@ -12,7 +12,10 @@ const Contacts = lazy(() => import("../pages/Contacts/Contacts"));
 const ProductDetail = lazy(() => import("../features/products/components/ProductDetail/ProductDetail"));
 const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
 const LogIn = lazy(() => import("../pages/Guest/LogIn/LogIn.tsx"));
+const Register = lazy(() => import("../pages/Guest/Register/Register.tsx"));
+const Notification = lazy(() => import("../pages/Notification/Notification.tsx"));
 const CartItem  = lazy(() => import("../pages/CartItem/CartItem"));
+const Profile  = lazy(() => import("../pages/Profile/Profile"));
 
 const publicRoutes = [
   { path: '/', element: <Home /> },
@@ -24,12 +27,15 @@ const publicRoutes = [
   { path: '/delivery', element: <Delivery /> },
   { path: '/product/:id', element: <ProductDetail /> },
   { path: '/login', element: <LogIn /> },
+  { path: '/register', element: <Register /> },
+  { path: '/notification', element: <Notification /> },
   { path: '*', element: <NotFound /> }
 ];
 
 const protectedRoutes = [
   { path: '/checkout', element: <Home /> },
   { path: '/cart', element: <CartItem /> },
+  { path: '/profile', element: <Profile /> },
 ];
 
 export function CustomerRoutes() {

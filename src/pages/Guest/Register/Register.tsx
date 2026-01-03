@@ -1,19 +1,17 @@
-import "./LogIn.css";
+import "./Register.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
-import { AppDispatch, RootState } from '../../../store/store';
+import { AppDispatch, RootState } from '../../../store/store.ts';
 import { fetchAuth } from '../../../store/slices/authThunk.ts';
 import { fetchUserByEmail } from '../../../features/users/slice/userThunks.ts';
-import { useState } from "react";
 
-export default function LogIn() {
+export default function Register() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
   const { loading } = useSelector((state: RootState) => state.auth);
 
@@ -28,12 +26,18 @@ export default function LogIn() {
 
   const formik = useFormik({
     initialValues: {
+      fullname: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
     validationSchema: Yup.object({
+      fullname: Yup.string().required('*Required'),
       email: Yup.string().email('*Invalid email').required('*Required'),
       password: Yup.string().min(6, '*At least 6 characters').required('*Required'),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref('password'), undefined], '*Passwords must match')
+        .required('*Required'),
     }),
     onSubmit: async (values) => {
       try {
@@ -49,13 +53,13 @@ export default function LogIn() {
             
             localStorage.setItem('user', JSON.stringify(userAction.payload));
             localStorage.setItem('role', JSON.stringify(userAction.payload.role));
-            toast.success('Login successful!');
+            toast.success('Register successful!');
             navigate('/');
           } else {
             throw new Error('Failed to load user info');
           }
         } else {
-          throw new Error(payload?.message || 'Login failed! Invalid email or password');
+          throw new Error(payload?.message || 'Register failed! Invalid email or password');
         }
       } catch (error: any) {
         toast.error(error?.response?.data?.message || error.message || 'Invalid email or password');
@@ -64,7 +68,7 @@ export default function LogIn() {
   });
 
   return (
-    <div className="login-container">
+    <div className="register-container">
       <div className="form-wrapper">
         <div className="form-container">
           {pawPositions.map((paw) => (
@@ -79,21 +83,38 @@ export default function LogIn() {
                 fontSize: `${paw.size}px`,
               }}
             >
-              <i className="fa-solid fa-paw"></i>
+              <i className="fa-solid fa-star"></i>
             </div>
           ))}
 
           <div className="image-container">
             <img
-              src="https://cdn.prod.website-files.com/5baddb6a35e113da0e9a4802/5bae0f1835e11376299a8089_33878-5-plush-toy-transparent-min.png"
-              alt="Login img"
-              className="login-image"
+              src="https://cdn.prod.website-files.com/5baddb6a35e113da0e9a4802/5bae12942ca03553bf0d536c_33903-2-plush-toy-transparent-image-min.png"
+              alt="Register img"
+              className="register-image"
             />
           </div>
 
-          <form className="login-form" onSubmit={formik.handleSubmit}>
+          <form className="register-form" onSubmit={formik.handleSubmit}>
             <div className="form-header">
-              <h2 className="form-title">Welcome Back!</h2>
+              <h2 className="form-title">Register</h2>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="fullname" className="form-label">Full name</label>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                className="form-input"
+                placeholder="Enter your fullname"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.fullname}
+              />
+              {formik.touched.fullname && formik.errors.fullname && (
+                <div className="error-text">{formik.errors.fullname}</div>
+              )}
             </div>
 
             <div className="form-group">
@@ -130,15 +151,32 @@ export default function LogIn() {
               )}
             </div>
 
-            <button type="submit" className="login-button" disabled={loading}>
-              {loading ? 'Logging in...' : 'Log In'}
+            <div className="form-group">
+              <label htmlFor="confirmPassword" className="form-label">Confirm password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                className="form-input"
+                placeholder="Enter your confirm password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.confirmPassword}
+              />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+                <div className="error-text">{formik.errors.confirmPassword}</div>
+              )}
+            </div>
+
+            <button type="submit" className="register-button" disabled={loading}>
+              {loading ? 'Registering...' : 'Register'}
             </button>
 
             <div className="form-footer">
               <p className="footer-text">
-                Don't have an account?{" "}
-                <Link to="/register" className="footer-link">
-                  Register for an account
+                Already have an account?{" "}
+                <Link to="/login" className="footer-link">
+                  Login
                 </Link>
               </p>
             </div>

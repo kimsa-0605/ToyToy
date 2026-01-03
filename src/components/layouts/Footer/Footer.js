@@ -10,10 +10,10 @@ const Footer = () => {
 
                 <div className="footer-nav-title">
                     <Link className="footer-nav-title-hover" to="/">Home</Link>
-                    <Link className="footer-nav-title-hover" to="/pages/catalog.html">Catalog</Link>
-                    <Link className="footer-nav-title-hover" to="/pages/delivery.html">Delivery</Link>
-                    <Link className="footer-nav-title-hover" to="/pages/about.html">About</Link>
-                    <Link className="footer-nav-title-hover" to="/pages/contacts.html">Contacts</Link>
+                    <Link className="footer-nav-title-hover" to="/catalog">Catalog</Link>
+                    <Link className="footer-nav-title-hover" to="/delivery">Delivery</Link>
+                    <Link className="footer-nav-title-hover" to="/about">About</Link>
+                    <Link className="footer-nav-title-hover" to="/contacts">Contacts</Link>
                 </div>
 
                 <div className="footer-contact-icons">

@@ -27,6 +27,7 @@ const cartItemSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'An error occurred while fetching products';
       })
+      
     // Add to cart
     .addCase(fetchAddToCart.fulfilled, (state, action) => {
       const addedItem = action.payload;
